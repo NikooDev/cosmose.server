@@ -2,3 +2,5 @@
 /src/private
 /node_modules
 .env
+.vercel
+/dist
