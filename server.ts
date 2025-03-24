@@ -16,8 +16,8 @@ app.use(cors({
 app.use(routes);
 
 app.get('/', (_req, res: express.Response) => {
-	res.setHeader("Content-Type", "application/json");
-	res.json({ name: 'Hello world' });
+	res.setHeader('Content-Type', 'application/json');
+	res.json({name: 'Hello world'});
 });
 
 app.listen(port, () => {
