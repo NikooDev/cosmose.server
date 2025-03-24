@@ -1,0 +1,5 @@
+{
+	"watch": ["src", "server.ts"],
+	"ext": "ts, json",
+	"exec": "NODE_NO_WARNINGS=1 tsx server.ts"
+}
