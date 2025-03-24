@@ -7,11 +7,6 @@ const port = 3000;
 
 app.use(express.json());
 
-app.get('/', (_req, res: express.Response) => {
-	res.setHeader("Content-Type", "application/json");
-	res.json({ name: 'Hello world' });
-});
-
 app.use(cors({
 	origin: ['http://localhost:4000', 'https://cosmoseapp.vercel.app'],
 	methods: ['DELETE', 'PATCH'],
@@ -19,6 +14,11 @@ app.use(cors({
 }));
 
 app.use(routes);
+
+app.get('/', (_req, res: express.Response) => {
+	res.setHeader("Content-Type", "application/json");
+	res.json({ name: 'Hello world' });
+});
 
 app.listen(port, () => {
 	console.log(`Server running on http://localhost:${port}`);
