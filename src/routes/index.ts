@@ -3,6 +3,7 @@ import UserController from '@Server/controllers/user.controller';
 
 const router = express.Router();
 
+router.post('/create/user', UserController.createUser.bind(this));
 router.post('/create/admin', UserController.createAdmin.bind(this));
 router.post('/revoke/user', UserController.revokeUser.bind(this));
 router.post('/unrevoke/user', UserController.unRevokeUser.bind(this));

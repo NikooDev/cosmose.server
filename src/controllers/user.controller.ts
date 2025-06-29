@@ -71,6 +71,46 @@ class UserController {
 		}
 	}
 
+	public createUser = async (req: Request, res: Response) => {
+		const { email, password } = req.body;
+
+		try {
+			const userRecord = await FirebaseService.Auth.createUser({ email, password });
+
+			res.status(200).json({ success: true, uid: userRecord.uid });
+		} catch (error) {
+			console.error('Erreur lors de la création de l\'utilisateur :', error);
+			let message: string | null;
+			const code = (error as any)?.code;
+
+				switch (code) {
+					case 'auth/email-already-exists':
+						message = "Cette adresse e-mail est déjà utilisée.";
+						break;
+					case 'auth/invalid-email':
+						message = "L'adresse e-mail saisie est invalide.";
+						break;
+					case 'auth/operation-not-allowed':
+						message = "La création de compte par e-mail est désactivée.";
+						break;
+					case 'auth/weak-password':
+						message = "Le mot de passe est trop faible. Veuillez en choisir un plus sécurisé.";
+						break;
+					case 'auth/internal-error':
+						message = "Une erreur interne est survenue. Veuillez réessayer.";
+						break;
+					case 'auth/network-request-failed':
+						message = "Impossible de se connecter au serveur. Vérifiez votre connexion internet.";
+						break;
+					default:
+						message = "Une erreur inconnue est survenue lors de la création du compte.";
+						break;
+				}
+
+			res.status(500).json({ success: false, message: message });
+		}
+	}
+
 	/**
 	 * @description Delete a single user by UID
 	 */
